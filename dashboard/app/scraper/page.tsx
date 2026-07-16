@@ -30,62 +30,86 @@ export default function ScraperControl() {
   };
 
   return (
-    <div className="p-8 space-y-8 h-full overflow-y-auto">
+    <div className="p-10 space-y-8 h-full overflow-y-auto">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Scraper Control Center</h1>
-        <p className="text-muted-foreground mt-2 text-foreground/70">
+        <h1 className="text-4xl font-extrabold tracking-tight text-foreground mb-2">Scraper Control Center</h1>
+        <p className="text-foreground/60 text-lg">
           Configure parameters and trigger the backend scraping engines.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="glass-card rounded-xl p-6 border border-border/50"
+          className="glass-card rounded-[24px] p-8"
         >
-          <h2 className="text-xl font-semibold mb-6 flex items-center">
-            <Search className="w-5 h-5 mr-2 text-primary" /> Target Parameters
+          <h2 className="text-xl font-bold mb-8 flex items-center text-foreground">
+            <Search className="w-5 h-5 mr-3 text-primary" /> Target Parameters
           </h2>
           
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-foreground/80 mb-1">Keywords</label>
+              <label className="block text-sm font-semibold text-foreground/70 mb-2 uppercase tracking-wider">Keywords</label>
               <input 
                 type="text" 
-                className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full bg-card border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all placeholder:text-foreground/30 shadow-sm"
                 value={keywords}
                 onChange={(e) => setKeywords(e.target.value)}
+                placeholder="e.g. Software Engineer"
               />
+              <div className="flex flex-wrap gap-2 mt-3">
+                {["AI ML", "Agentic AI", "Full Stack Developer", "Backend Developer", "Frontend Developer"].map(kw => (
+                  <button
+                    key={kw}
+                    onClick={() => setKeywords(kw)}
+                    className="text-xs font-semibold bg-primary/10 text-primary border border-primary/20 rounded-full px-4 py-1.5 hover:bg-primary/20 transition-all"
+                  >
+                    {kw}
+                  </button>
+                ))}
+              </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-foreground/80 mb-1">Location</label>
+              <label className="block text-sm font-semibold text-foreground/70 mb-2 uppercase tracking-wider">Location / Work Mode</label>
               <input 
                 type="text" 
-                className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full bg-card border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all placeholder:text-foreground/30 shadow-sm"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
+                placeholder="e.g. Remote, India"
               />
+              <div className="flex flex-wrap gap-2 mt-3">
+                {["India", "Remote", "Onsite", "United States", "Europe"].map(loc => (
+                  <button
+                    key={loc}
+                    onClick={() => setLocation(loc)}
+                    className="text-xs font-semibold bg-primary/10 text-primary border border-primary/20 rounded-full px-4 py-1.5 hover:bg-primary/20 transition-all"
+                  >
+                    {loc}
+                  </button>
+                ))}
+              </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-foreground/80 mb-1">Target Board</label>
+              <label className="block text-sm font-semibold text-foreground/70 mb-2 uppercase tracking-wider">Target Board</label>
               <select 
-                className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full bg-card border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all shadow-sm appearance-none"
                 value={board}
                 onChange={(e) => setBoard(e.target.value)}
               >
-                <option value="Freehire">Freehire Client</option>
-                <option value="LinkedIn">LinkedIn Engine</option>
-                <option value="Indeed">Indeed Engine</option>
+                <option value="Freehire Engine">Freehire Engine</option>
+                <option value="LinkedIn Engine">LinkedIn Engine</option>
+                <option value="Indeed Engine">Indeed Engine</option>
               </select>
             </div>
             
             <button 
               onClick={handleRun}
               disabled={loading}
-              className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 px-4 rounded-lg flex items-center justify-center transition-all shadow-[0_0_15px_rgba(139,92,246,0.5)] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full mt-8 bg-primary hover:bg-primary/90 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center transition-all shadow-[0_4px_14px_0_rgb(0,118,255,0.39)] hover:shadow-[0_6px_20px_rgba(0,118,255,0.23)] hover:bg-[rgba(0,118,255,0.9)] disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5"
             >
-              {loading ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : <Play className="w-5 h-5 mr-2" />}
+              {loading ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : <Play className="w-5 h-5 mr-2 fill-current" />}
               {loading ? "Engine Running..." : "Fire Scraper Engine"}
             </button>
           </div>
@@ -94,13 +118,23 @@ export default function ScraperControl() {
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="glass-card rounded-xl border border-border/50 overflow-hidden flex flex-col"
+          className="glass-card rounded-2xl overflow-hidden flex flex-col h-[600px] border border-white/10 shadow-2xl"
         >
-          <div className="bg-card/80 px-6 py-4 border-b border-border/50 flex items-center justify-between">
-            <h3 className="font-semibold text-foreground">Execution Output</h3>
+          {/* Terminal Header */}
+          <div className="bg-[#1a1a1a] px-4 py-3 border-b border-[#333] flex items-center justify-between">
+            <div className="flex gap-2">
+              <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+              <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+              <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+            </div>
+            <div className="text-[#888] text-xs font-mono font-medium tracking-widest flex items-center gap-2">
+               SCRAPER KERNEL
+            </div>
+            <div className="w-10" />
           </div>
-          <div className="bg-black/50 p-6 font-mono text-sm text-green-400 h-full min-h-[300px] overflow-y-auto whitespace-pre-wrap">
-            {logs || "Ready."}
+          <div className="bg-[#0d0d0d] p-6 font-mono text-[13px] leading-relaxed text-[#a1a1aa] flex-1 overflow-y-auto whitespace-pre-wrap shadow-inner">
+            {logs || "Ready.\nWaiting for extraction target..."}
+            {loading && <span className="animate-pulse">_</span>}
           </div>
         </motion.div>
       </div>

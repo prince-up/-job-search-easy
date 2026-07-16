@@ -3,11 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/Sidebar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "AI Job Search Dashboard",
-  description: "Elite Full-Stack MERN & Next.js SaaS Interface for Agentic Job Search",
+  description: "Elite Apple-Style SaaS Interface for Agentic Job Search",
 };
 
 export default function RootLayout({
@@ -16,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} bg-background text-foreground flex h-screen overflow-hidden`}>
+    <html lang="en">
+      <body className={`${inter.variable} font-sans bg-background text-foreground flex h-screen overflow-hidden`}>
         <Sidebar />
-        <main className="flex-1 overflow-y-auto bg-gradient-to-br from-background to-card/50">
+        <main className="flex-1 overflow-y-auto bg-transparent relative z-10 p-6">
           {children}
         </main>
       </body>
